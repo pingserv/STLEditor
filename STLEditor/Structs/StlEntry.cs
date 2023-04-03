@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace STLEditor
+namespace STLEditor.Structs
 {
     /*
     struct StlEntry	// sizeof 0x50
@@ -31,10 +28,10 @@ namespace STLEditor
         public byte[] unknown1;
 
         public Item key;
-        
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public byte[] unknown2;
-        
+
         public Item value;
         public uint id;
 

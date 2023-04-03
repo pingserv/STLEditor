@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace STLEditor
+namespace STLEditor.Structs
 {
     /*
     struct StlHeader	// sizeof 0x28
