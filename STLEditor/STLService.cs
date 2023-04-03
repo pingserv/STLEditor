@@ -1,5 +1,4 @@
-﻿using Gibbed.IO;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
 
@@ -51,6 +50,12 @@ namespace STLEditor
                 writer.BaseStream.WriteString("hello");
 
             }
+        }
+
+        internal static void closeFile()
+        {
+            filename = null;
+            stringList = null;
         }
     }
 }

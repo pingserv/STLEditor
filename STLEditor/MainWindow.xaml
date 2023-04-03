@@ -18,7 +18,7 @@
                 <MenuItem Header="Exit" Click="Exit_btn"  Icon="{iconPacks:Material exitToApp}"/>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="dataGrid" Margin="0,22,0,0" Background="White" HorizontalGridLinesBrush="#FFCCCCCC" VerticalGridLinesBrush="#FFCCCCCC" AutoGenerateColumns="False" BorderBrush="{x:Null}">
+        <DataGrid x:Name="dataGrid" Margin="0,22,0,22" Background="White" HorizontalGridLinesBrush="#FFCCCCCC" VerticalGridLinesBrush="#FFCCCCCC" AutoGenerateColumns="False" BorderBrush="{x:Null}">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}" >
                     <Setter Property="Background" Value="#FFF9F9F9" />
@@ -31,10 +31,11 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Key" Binding="{Binding Key}" Header="Key" Width="0.25*"/>
-                <DataGridTextColumn x:Name="Value" Binding="{Binding Value}" Header="Value" MinWidth="500" Width="*"/>
+                <DataGridTextColumn x:Name="Id" Binding="{Binding Id}" Header="Id" Width="0.20*"/>
+                <DataGridTextColumn x:Name="Key" Binding="{Binding Key}" Header="Key" Width="0.40*"/>
+                <DataGridTextColumn x:Name="Value" Binding="{Binding Value}" Header="Value" Width="0.40*"/>
             </DataGrid.Columns>
         </DataGrid>
-
+        <StatusBar Name="Statusbar" Height="22" VerticalAlignment="Bottom" />
     </Grid>
 </Window>
