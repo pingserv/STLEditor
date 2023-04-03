@@ -23,6 +23,7 @@ namespace STLEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool fileOpened = false;
         public string WindowTitle
         {
             get { return (string)GetValue(WindowTitleProperty); }
@@ -36,11 +37,20 @@ namespace STLEditor
         {
             InitializeComponent();
 
-            WindowTitle = "StringList Editor v0.2";
+            WindowTitle = "StringList Editor v0.3";
         }
 
         private void Open_btn(object sender, RoutedEventArgs e)
         {
+            if (fileOpened)
+            {
+                STLService.closeFile();
+
+                dataGrid.ItemsSource = new List<DatagridEntry>();
+                WindowTitle = WindowTitle.Substring(0, 22);
+                Statusbar.Items.Clear();
+            }
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
@@ -48,21 +58,15 @@ namespace STLEditor
 
                 if (STLService.isFileValid())
                 {
-
                     STLService.openFile();
 
-                    List<DatagridEntry> entries = new List<DatagridEntry>();
-                    foreach (_StlEntry entry in STLService.stringList.entries)
-                    {
-                        entries.Add(new DatagridEntry()
-                        {
-                            Key = entry.string1,
-                            Value = entry.string2
-                        });
-                    }
-
                     WindowTitle = WindowTitle.Substring(0, 22) + " [" + openFileDialog.SafeFileName + "]";
-                    dataGrid.ItemsSource = entries;
+                    dataGrid.ItemsSource = STLService.stringList.entries;
+
+                    Statusbar.Items.Clear();
+                    Statusbar.Items.Add(string.Concat(STLService.stringList.entries.Count(), " records"));
+
+                    fileOpened = true;
                 }
             }
         }
@@ -92,10 +96,16 @@ namespace STLEditor
 
         private void Close_btn(object sender, RoutedEventArgs e)
         {
-            STLService.filename = null;
-            STLService.stringList = null;
-            dataGrid.ItemsSource = new List<DatagridEntry>();
-            WindowTitle = WindowTitle.Substring(0, 22);
+            if (fileOpened)
+            {
+                STLService.closeFile();
+
+                dataGrid.ItemsSource = new List<DatagridEntry>();
+                WindowTitle = WindowTitle.Substring(0, 22);
+                Statusbar.Items.Clear();
+
+                fileOpened = false;
+            }
         }
 
         private void Exit_btn(object sender, RoutedEventArgs e)
