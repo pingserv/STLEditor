@@ -52,6 +52,7 @@ namespace STLEditor
                     dataGrid.ItemsSource = STLService.stringList.entries;
 
                     Statusbar.Items.Clear();
+                    Statusbar.Items.Add(string.Concat(STLService.stringList.fileType, " file"));
                     Statusbar.Items.Add(string.Concat(STLService.stringList.entries.Count(), " records"));
 
                     fileOpened = true;

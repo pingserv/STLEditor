@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace STLEditor
@@ -24,9 +25,16 @@ namespace STLEditor
                     MessageBox.Show("The file does not readable.", "File opening error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
+
                 if (fs.Length < 56)
                 {
                     MessageBox.Show("Invalid file.", "File opening error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+
+                if (fs.ReadValueU32() != 0xDEADBEEF)
+                {
+                    MessageBox.Show("It's not a StringList file.", "File opening error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
             }
@@ -47,7 +55,9 @@ namespace STLEditor
             using (BinaryWriter writer = new BinaryWriter(File.Open(filename, FileMode.Create)))
             {
                 writer.BaseStream.Position = 0;
-                writer.BaseStream.WriteString("hello");
+                byte[] bytes = stringList.stlFileStruct.StructToByteArray();
+
+                writer.BaseStream.WriteBytes(bytes);
 
             }
         }

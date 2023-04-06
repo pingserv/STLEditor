@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="app_icon.ico" />
+    <None Remove="Icons\close.ico" />
+    <None Remove="Icons\exit.ico" />
+    <None Remove="Icons\folder.ico" />
+    <None Remove="Icons\save.ico" />
+    <None Remove="Icons\saveas.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>0</VersionMinor>
@@ -17,7 +26,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+	  <Resource Include="Icons\app_icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+	  <Resource Include="Icons\close.ico" />
+	  <Resource Include="Icons\exit.ico" />
+    <Resource Include="Icons\folder.ico" />
+	  <Resource Include="Icons\save.ico" />
+	  <Resource Include="Icons\saveas.ico" />
   </ItemGroup>
 
 </Project>

@@ -1,26 +1,19 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace STLEditor.Structs
 {
     /*
-    struct StlEntry	// sizeof 0x50
-    {	
-        0x00	DWord unknown1[2];	// always 0x00000000
-        0x08	DWord keyOffset;	// file offset for string1 (non-NLS key)
-        0x0C	DWord keySize;	    // size of string1
-        0x10	DWord unknown2[2];	// always 0x00000000
-        0x18	DWord valueOffset;	// file offset for string2
-        0x1C	DWord valueSize;	// size of string2
-        0x1C	DWord id;	        // size of string2
-        0x20	DWord unknown3[2];	// always 0x00000000
-    }
+    typedef struct {
+	    int32_t unknown1[2];	// always 0x00000000
+	    int32_t string1offset;	// file offset for string1 (non-NLS key)
+	    int32_t string1size;	// size of string1
+	    int32_t unknown2[2];	// always 0x00000000
+	    int32_t string2offset;	// file offset for string2
+	    int32_t string2size;	// size of string2
+	    int32_t unknown3[2];	// always 0x00000000
+    } StlEntry;
     */
-
-    public struct Item
-    {
-        public int columnOffset;
-        public int columnSize;
-    }
 
     public struct StlEntry
     {

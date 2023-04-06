@@ -4,18 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STLEditor" 
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle, RelativeSource={RelativeSource Mode=Self}}" Height="450" Width="800"
+        Title="{Binding WindowTitle, RelativeSource={RelativeSource Mode=Self}}" 
+        Height="450" 
+        Width="800" 
+       Icon="Icons/app_icon.ico"
         >
     <Grid Margin="0,0,0,0">
         <Menu Height="22" VerticalAlignment="Top">
             <MenuItem Header="File" Height="22" Width="32">
-                <MenuItem Header="Open file" Click="Open_btn" Icon="{iconPacks:Material folder}"/>
-                <MenuItem Header="Save" Click="Save_btn" Icon="{iconPacks:Material contentSave}"/>
-                <MenuItem Header="Save as" Click="SaveAs_btn" Icon="{iconPacks:Material contentSave}"/>
-                <MenuItem Header="Close" Click="Close_btn" Icon="{iconPacks:Material close}"/>
-                <MenuItem Header="Exit" Click="Exit_btn"  Icon="{iconPacks:Material exitToApp}"/>
+                <MenuItem Header="Open file" Click="Open_btn">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/folder.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save" Click="Save_btn">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/save.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save as" Click="SaveAs_btn">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/saveas.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Close" Click="Close_btn">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/close.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Exit" Click="Exit_btn">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/exit.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <DataGrid x:Name="dataGrid" Margin="0,22,0,22" Background="White" HorizontalGridLinesBrush="#FFCCCCCC" VerticalGridLinesBrush="#FFCCCCCC" AutoGenerateColumns="False" BorderBrush="{x:Null}">
