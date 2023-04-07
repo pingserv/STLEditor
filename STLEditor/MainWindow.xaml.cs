@@ -35,7 +35,6 @@ namespace STLEditor
             {
                 STLService.closeFile();
 
-                dataGrid.ItemsSource = new List<DatagridRow>();
                 WindowTitle = WindowTitle.Substring(0, 22);
                 Statusbar.Items.Clear();
             }
@@ -92,7 +91,6 @@ namespace STLEditor
             {
                 STLService.closeFile();
 
-                dataGrid.ItemsSource = new List<DatagridRow>();
                 WindowTitle = WindowTitle.Substring(0, 22);
                 Statusbar.Items.Clear();
 
