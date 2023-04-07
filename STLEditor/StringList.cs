@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using STLEditor.Enums;
 using STLEditor.Structs;
 
@@ -8,12 +9,13 @@ namespace STLEditor
     public class StringList
     {
         public uint MAGIC = 0xDEADBEEF;
-        public FullStlFileStruct stlFileStruct;
+        public BinaryFileStruct stlFileStruct = new BinaryFileStruct();
         public FileTypes fileType;
-        public List<DatagridEntry> entries = new List<DatagridEntry>();
 
         public StringList(Stream stream)
         {
+            StreamHelpers.DefaultEncoding = Encoding.Latin1;
+
             stlFileStruct.Signature = stream.ReadStructure<Signature>();
 
             if (!stlFileStruct.Signature.MagicNumber.Equals(MAGIC))
@@ -28,33 +30,26 @@ namespace STLEditor
                     return;
 
                 int entriesCount = stlFileStruct.Header.entriesCount / stlFileStruct.Header.entrySize;
-                stlFileStruct.Entries = new StlEntry[entriesCount]; 
+                
+                stlFileStruct.Entries = new StlEntry[entriesCount];
                 for (int i = 0; i < entriesCount; i++)
                 {
                     stlFileStruct.Entries[i] = stream.ReadStructure<StlEntry>();
                 }
 
                 stlFileStruct.Records = new StlRecord[entriesCount];
-                // TODO: Most kellene feltölteni a szöveges tartalmat de a változó szöveghossz miatt szerintem nem lehet. manuálisan kell majd.
-                int j = 0;
-
-                foreach (StlEntry entry in stlFileStruct.Entries)
+                for (int i = 0; i < entriesCount; i++)
                 {
-                    stlFileStruct.Records[j] = new StlRecord();
+                    stream.Position = stlFileStruct.Entries[i].Key.columnOffset + 0x10;
+                    string key = stream.ReadString((uint)stlFileStruct.Entries[i].Key.columnSize - 1);
 
-                    stream.Position = entry.key.columnOffset + 0x10;
-                    stlFileStruct.Records[j].Key = stream.ReadString((uint)entry.key.columnSize - 1);
+                    stream.Position = stlFileStruct.Entries[i].Value.columnOffset + 0x10;
+                    string value = stream.ReadString((uint)stlFileStruct.Entries[i].Value.columnSize - 1);
 
-                    stream.Position = entry.value.columnOffset + 0x10;
-                    stlFileStruct.Records[j].Value = stream.ReadString((uint)entry.value.columnSize - 1);
-
-                    DatagridEntry _entry = new DatagridEntry();
-                    _entry.Id = entry.id.ToString();
-                    _entry.Key = stlFileStruct.Records[j].Key;
-                    _entry.Value = stlFileStruct.Records[j].Value;
-
-                    entries.Add(_entry);
-                    j++;
+                    stlFileStruct.Records[i] = new StlRecord(){
+                        Key = key,
+                        Value = value
+                    };
                 }
             }
         }

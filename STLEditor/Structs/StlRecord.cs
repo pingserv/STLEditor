@@ -2,12 +2,9 @@
 
 namespace STLEditor
 {
-    public struct StlRecord
+    public class StlRecord
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] unknown1;
-
-        public string Key;
-        public string Value;
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }

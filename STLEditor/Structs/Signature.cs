@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace STLEditor.Structs
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct Signature
     {
         public uint MagicNumber;

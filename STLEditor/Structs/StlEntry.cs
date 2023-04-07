@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace STLEditor.Structs
 {
@@ -15,20 +14,20 @@ namespace STLEditor.Structs
     } StlEntry;
     */
 
+    [StructLayout(LayoutKind.Sequential)]
     public struct StlEntry
     {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public byte[] unknown1;
 
-        public Item key;
+        public Item Key;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public byte[] unknown2;
 
-        public Item value;
-        public uint id;
+        public Item Value;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public byte[] unknown3;
     }
 }

@@ -53,9 +53,8 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Id" Binding="{Binding Id}" Header="Id" Width="0.20*"/>
-                <DataGridTextColumn x:Name="Key" Binding="{Binding Key}" Header="Key" Width="0.40*"/>
-                <DataGridTextColumn x:Name="Value" Binding="{Binding Value}" Header="Value" Width="0.40*"/>
+                <DataGridTextColumn x:Name="Key" Binding="{Binding Key}" Header="Key" Width="0.50*"/>
+                <DataGridTextColumn x:Name="Value" Binding="{Binding Value}" Header="Value" Width="0.50*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StatusBar Name="Statusbar" Height="22" VerticalAlignment="Bottom" />

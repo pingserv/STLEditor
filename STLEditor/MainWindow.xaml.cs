@@ -2,6 +2,7 @@
 using STLEditor.Structs;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace STLEditor
@@ -25,7 +26,7 @@ namespace STLEditor
         {
             InitializeComponent();
 
-            WindowTitle = "StringList Editor v0.3";
+            WindowTitle = "StringList Editor v1.0";
         }
 
         private void Open_btn(object sender, RoutedEventArgs e)
@@ -34,12 +35,13 @@ namespace STLEditor
             {
                 STLService.closeFile();
 
-                dataGrid.ItemsSource = new List<DatagridEntry>();
+                dataGrid.ItemsSource = new List<DatagridRow>();
                 WindowTitle = WindowTitle.Substring(0, 22);
                 Statusbar.Items.Clear();
             }
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "StringList|*.stl";
             if (openFileDialog.ShowDialog() == true)
             {
                 STLService.filename = openFileDialog.FileName;
@@ -49,11 +51,11 @@ namespace STLEditor
                     STLService.openFile();
 
                     WindowTitle = WindowTitle.Substring(0, 22) + " [" + openFileDialog.SafeFileName + "]";
-                    dataGrid.ItemsSource = STLService.stringList.entries;
+                    dataGrid.ItemsSource = STLService.stringList.stlFileStruct.Records;
 
                     Statusbar.Items.Clear();
                     Statusbar.Items.Add(string.Concat(STLService.stringList.fileType, " file"));
-                    Statusbar.Items.Add(string.Concat(STLService.stringList.entries.Count(), " records"));
+                    Statusbar.Items.Add(string.Concat(STLService.stringList.stlFileStruct.Records.Count(), " records"));
 
                     fileOpened = true;
                 }
@@ -74,6 +76,7 @@ namespace STLEditor
         private void SaveAs_btn(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "StringList|*.stl";
             if (saveFileDialog.ShowDialog() == true)
             {
                 STLService.filename = saveFileDialog.FileName;
@@ -89,7 +92,7 @@ namespace STLEditor
             {
                 STLService.closeFile();
 
-                dataGrid.ItemsSource = new List<DatagridEntry>();
+                dataGrid.ItemsSource = new List<DatagridRow>();
                 WindowTitle = WindowTitle.Substring(0, 22);
                 Statusbar.Items.Clear();
 

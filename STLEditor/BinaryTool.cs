@@ -1,4 +1,5 @@
-﻿using System;
+﻿using STLEditor.Structs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -1460,26 +1461,26 @@ namespace STLEditor
             return Unsafe.As<byte, MD5Hash>(ref array[0]);
         }
 
-        public static byte[] StructToByteArray<T>(this T oStruct)
+        public static byte[] FileStructToByteArray(this BinaryFileStruct oStruct)
         {
             try
             {
-                // This function copies the structure data into a byte[] 
-
                 //Set the buffer to the correct size 
-                byte[] buffer = new byte[Marshal.SizeOf(oStruct)];
+                var x1 = Marshal.SizeOf(oStruct);
+                var x2 = Marshal.SizeOf(typeof(StlEntry));
+                var x3 = Marshal.SizeOf(typeof(StlRecord));
 
-                //Allocate the buffer to memory and pin it so that GC cannot use the 
-                //space (Disable GC) 
-                GCHandle h = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+                byte[] buffer = new byte[
+                    Marshal.SizeOf(typeof(BinaryFileStruct))
+                  //  + oStruct.getStructSize()
+                    ];
 
-                // copy the struct into int byte[] mem alloc 
-                Marshal.StructureToPtr(oStruct, h.AddrOfPinnedObject(), false);
 
-                h.Free(); //Allow GC to do its job 
+                GCHandle gCHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+                Marshal.StructureToPtr((object)oStruct, gCHandle.AddrOfPinnedObject(), fDeleteOld: false);
+                gCHandle.Free();
 
-                return buffer; // return the byte[]. After all that's why we are here 
-                               // right. 
+                return buffer; 
             }
             catch (Exception ex)
             {

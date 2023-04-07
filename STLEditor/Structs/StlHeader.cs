@@ -13,6 +13,7 @@ namespace STLEditor.Structs
     } StlHeader;
     */
 
+    [StructLayout(LayoutKind.Sequential)]
     public struct StlHeader
     {
         public ushort stlFileId;
@@ -20,10 +21,10 @@ namespace STLEditor.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
         public byte[] pad2;
 
-        public int entrySize { get; set; }
-        public int entriesCount { get; set; }
+        public int entrySize;
+        public int entriesCount;
 
-       
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
         public byte[] pad3;
     }
 }
